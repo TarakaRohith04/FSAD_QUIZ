@@ -11,33 +11,33 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api', apiRoutes);
+// We mount at '/' because Vercel already handles the '/api' prefix in the rewrite/routing
+app.use('/', apiRoutes);
 
 // Database Connection (Serverless optimized)
 let isConnected = false;
-const connectDB = async () => {
-  if (isConnected) return;
-  
+const connectDB = async (req, res, next) => {
+  if (isConnected) return next();
+
   const uri = process.env.MONGODB_URI;
   if (!uri) {
     console.error('MONGODB_URI is not defined in environment variables');
-    return;
+    return res.status(500).json({ message: "Database connection failed: MONGODB_URI missing in Vercel settings." });
   }
 
   try {
     const db = await mongoose.connect(uri);
     isConnected = db.connections[0].readyState;
     console.log(`Successfully connected to MongoDB Cloud at ${db.connections[0].host}`);
+    next();
   } catch (err) {
     console.error('MongoDB connection error:', err.message);
+    res.status(500).json({ message: "Database connection error: " + err.message });
   }
 };
 
-// Connect to DB for every request (singleton handles the reuse)
-app.use(async (req, res, next) => {
-  await connectDB();
-  next();
-});
+// Connect to DB for every request
+app.use(connectDB);
 
 // Export the app for Vercel
 module.exports = app;

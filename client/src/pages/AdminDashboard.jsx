@@ -181,16 +181,25 @@ const AdminDashboard = () => {
                         style={{ 
                           padding: '1.25rem', 
                           borderRadius: '1rem', 
-                          background: 'rgba(15, 23, 42, 0.6)', 
-                          border: '1px solid var(--glass-border)', 
-                          color: 'white', 
+                          background: '#f8fafc', 
+                          border: '1px solid #e2e8f0', 
+                          color: 'var(--text-main)', 
                           minHeight: '120px',
                           fontSize: '1rem',
                           outline: 'none',
-                          transition: 'border-color 0.2s'
+                          transition: 'all 0.3s ease',
+                          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)'
                         }}
-                        onFocus={(e) => e.target.style.borderColor = 'var(--primary)'}
-                        onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = 'var(--primary)';
+                          e.target.style.background = 'white';
+                          e.target.style.boxShadow = '0 0 0 4px rgba(99, 102, 241, 0.1)';
+                        }}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = '#e2e8f0';
+                          e.target.style.background = '#f8fafc';
+                          e.target.style.boxShadow = 'none';
+                        }}
                       />
                     </div>
 
@@ -263,12 +272,12 @@ const AdminDashboard = () => {
                               left: 0, 
                               right: 0, 
                               marginTop: '0.5rem', 
-                              background: '#1e293b', 
-                              border: '1px solid var(--glass-border)', 
+                              background: 'white', 
+                              border: '1px solid #e2e8f0', 
                               borderRadius: '1rem', 
                               zIndex: 100, 
                               overflow: 'hidden',
-                              boxShadow: '0 10px 25px -5px rgba(0,0,0,0.5)'
+                              boxShadow: '0 15px 30px -10px rgba(0,0,0,0.1)'
                             }}
                           >
                             {newQuestion.options.map((_, idx) => (
@@ -282,14 +291,21 @@ const AdminDashboard = () => {
                                   padding: '1rem', 
                                   cursor: 'pointer', 
                                   background: newQuestion.correctAnswer === idx ? 'var(--primary)' : 'transparent',
-                                  color: 'white',
-                                  transition: 'background 0.2s'
+                                  color: newQuestion.correctAnswer === idx ? 'white' : 'var(--text-main)',
+                                  transition: 'all 0.2s ease',
+                                  fontWeight: newQuestion.correctAnswer === idx ? '600' : '400'
                                 }}
                                 onMouseEnter={(e) => {
-                                  if (newQuestion.correctAnswer !== idx) e.target.style.background = 'rgba(255,255,255,0.05)';
+                                  if (newQuestion.correctAnswer !== idx) {
+                                    e.target.style.background = '#f1f5f9';
+                                    e.target.style.paddingLeft = '1.25rem';
+                                  }
                                 }}
                                 onMouseLeave={(e) => {
-                                  if (newQuestion.correctAnswer !== idx) e.target.style.background = 'transparent';
+                                  if (newQuestion.correctAnswer !== idx) {
+                                    e.target.style.background = 'transparent';
+                                    e.target.style.paddingLeft = '1rem';
+                                  }
                                 }}
                               >
                                 Option {String.fromCharCode(65 + idx)}
