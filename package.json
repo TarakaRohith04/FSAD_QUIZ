@@ -1,0 +1,14 @@
+{
+  "name": "fsad-quiz-portal",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=18.x"
+  },
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "api-install": "npm install --prefix api",
+    "install-all": "npm run client-install && npm run api-install",
+    "build": "npm run build --prefix client"
+  }
+}
