@@ -10,10 +10,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
-// We mount at '/' because Vercel already handles the '/api' prefix in the rewrite/routing
-app.use('/', apiRoutes);
-
 // Database Connection (Serverless optimized)
 let isConnected = false;
 const connectDB = async (req, res, next) => {
@@ -36,8 +32,13 @@ const connectDB = async (req, res, next) => {
   }
 };
 
-// Connect to DB for every request
+// --- Execution Order: Connect to DB FIRST, then handle Routes ---
 app.use(connectDB);
+
+// Routes
+// Support both /api prefix (Vercel default) and root (rewritten) paths
+app.use('/api', apiRoutes);
+app.use('/', apiRoutes);
 
 // Export the app for Vercel
 module.exports = app;
