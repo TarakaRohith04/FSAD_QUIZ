@@ -442,19 +442,35 @@ const AdminDashboard = () => {
                 width: '100%', 
                 maxWidth: '900px', 
                 maxHeight: '90vh', 
-                padding: '2.5rem', 
+                padding: '3rem', 
                 overflowY: 'auto', 
-                background: '#111827',
-                border: '1px solid var(--glass-border)'
+                background: 'white',
+                border: 'none',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
               }}
             >
+              <button 
+                onClick={() => setShowDetailModal(false)}
+                style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: '#f1f5f9', border: 'none', borderRadius: '50%', padding: '0.5rem', cursor: 'pointer', color: 'var(--text-muted)' }}
+              >
+                <X size={20} />
+              </button>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2.5rem' }}>
                 <div>
-                  <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{selectedParticipant.studentName}</h2>
-                  <p style={{ color: 'var(--text-muted)' }}>
-                    Reg No: {selectedParticipant.regNo} | Section: {selectedParticipant.section} | 
-                    <span style={{ color: selectedParticipant.submissionType === 'Auto' ? '#f43f5e' : '#10b981', fontWeight: '700', marginLeft: '0.5rem' }}>
-                      {selectedParticipant.submissionType === 'Auto' ? '⚠️ Auto-Submitted (Caught Cheating)' : '✅ Manual Submission'}
+                  <h2 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', color: 'var(--text-main)', fontWeight: '800' }}>{selectedParticipant.studentName}</h2>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    Reg No: <span style={{ color: 'var(--text-main)', fontWeight: '600' }}>{selectedParticipant.regNo}</span> | 
+                    Section: <span style={{ color: 'var(--text-main)', fontWeight: '600' }}>{selectedParticipant.section}</span> | 
+                    <span style={{ 
+                      padding: '0.25rem 0.75rem', 
+                      borderRadius: '2rem', 
+                      fontSize: '0.75rem', 
+                      fontWeight: '700',
+                      background: selectedParticipant.submissionType === 'Auto' ? 'rgba(244, 63, 94, 0.1)' : 'rgba(16, 185, 129, 0.1)',
+                      color: selectedParticipant.submissionType === 'Auto' ? '#f43f5e' : '#10b981',
+                      border: `1px solid ${selectedParticipant.submissionType === 'Auto' ? 'rgba(244, 63, 94, 0.2)' : 'rgba(16, 185, 129, 0.2)'}`
+                    }}>
+                      {selectedParticipant.submissionType === 'Auto' ? '⚠️ Auto-Submitted' : '✅ Manual Submission'}
                     </span>
                   </p>
                 </div>
@@ -464,26 +480,26 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
-                <div className="glass-card" style={{ padding: '1.25rem', textAlign: 'center', background: 'rgba(255,255,255,0.03)' }}>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Unit 1: Hibernate</p>
-                  <p style={{ fontSize: '1.5rem', fontWeight: '700' }}>{selectedParticipant.unit1Marks}</p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.25rem', marginBottom: '3.5rem' }}>
+                <div className="glass-card" style={{ padding: '1.5rem', textAlign: 'center', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem', textTransform: 'uppercase', fontWeight: '700' }}>Unit 1</p>
+                  <p style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--primary)' }}>{selectedParticipant.unit1Marks}</p>
                 </div>
-                <div className="glass-card" style={{ padding: '1.25rem', textAlign: 'center', background: 'rgba(255,255,255,0.03)' }}>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Unit 2: Spring</p>
-                  <p style={{ fontSize: '1.5rem', fontWeight: '700' }}>{selectedParticipant.unit2Marks}</p>
+                <div className="glass-card" style={{ padding: '1.5rem', textAlign: 'center', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem', textTransform: 'uppercase', fontWeight: '700' }}>Unit 2</p>
+                  <p style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--primary)' }}>{selectedParticipant.unit2Marks}</p>
                 </div>
-                <div className="glass-card" style={{ padding: '1.25rem', textAlign: 'center', background: 'rgba(255,255,255,0.03)' }}>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Unit 3: Spring Boot</p>
-                  <p style={{ fontSize: '1.5rem', fontWeight: '700' }}>{selectedParticipant.unit3Marks}</p>
+                <div className="glass-card" style={{ padding: '1.5rem', textAlign: 'center', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem', textTransform: 'uppercase', fontWeight: '700' }}>Unit 3</p>
+                  <p style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--primary)' }}>{selectedParticipant.unit3Marks}</p>
                 </div>
-                <div className="glass-card" style={{ padding: '1.25rem', textAlign: 'center', background: 'rgba(255,255,255,0.03)' }}>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Unit 4: React</p>
-                  <p style={{ fontSize: '1.5rem', fontWeight: '700' }}>{selectedParticipant.unit4Marks}</p>
+                <div className="glass-card" style={{ padding: '1.5rem', textAlign: 'center', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem', textTransform: 'uppercase', fontWeight: '700' }}>Unit 4</p>
+                  <p style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--primary)' }}>{selectedParticipant.unit4Marks}</p>
                 </div>
               </div>
 
-              <h3 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.75rem' }}>Response Summary</h3>
+              <h3 style={{ marginBottom: '1.5rem', borderBottom: '2px solid #f1f5f9', paddingBottom: '1rem', color: 'var(--text-main)', fontSize: '1.25rem', fontWeight: '700' }}>Response Summary</h3>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 {Object.entries(selectedParticipant.responses || {}).map(([qId, selectedIdx]) => {
@@ -492,18 +508,18 @@ const AdminDashboard = () => {
                   const isCorrect = selectedIdx === question.correctAnswer;
 
                   return (
-                    <div key={qId} className="glass-card" style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.01)', borderLeft: `4px solid ${isCorrect ? '#10b981' : '#f43f5e'}` }}>
-                      <p style={{ fontWeight: '600', marginBottom: '1rem' }}>{question.questionText}</p>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                        <div style={{ fontSize: '0.9rem' }}>
-                          <span style={{ color: 'var(--text-muted)' }}>Student Answer: </span>
-                          <span style={{ color: isCorrect ? '#10b981' : '#f43f5e', fontWeight: '600' }}>
-                            {question.options[selectedIdx]} {isCorrect ? '(Correct)' : '(Incorrect)'}
-                          </span>
+                    <div key={qId} className="glass-card" style={{ padding: '1.5rem', background: '#f8fafc', border: '1px solid #e2e8f0', borderLeft: `6px solid ${isCorrect ? '#10b981' : '#f43f5e'}` }}>
+                      <p style={{ fontWeight: '700', marginBottom: '1.25rem', color: 'var(--text-main)', lineHeight: '1.5' }}>{question.questionText}</p>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+                        <div style={{ background: isCorrect ? 'rgba(16, 185, 129, 0.05)' : 'rgba(244, 63, 94, 0.05)', padding: '0.75rem 1rem', borderRadius: '0.75rem' }}>
+                          <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: '700' }}>Student Answer</p>
+                          <p style={{ color: isCorrect ? '#059669' : '#e11d48', fontWeight: '600', fontSize: '0.95rem' }}>
+                            {question.options[selectedIdx]} {isCorrect ? '✓' : '✗'}
+                          </p>
                         </div>
-                        <div style={{ fontSize: '0.9rem' }}>
-                          <span style={{ color: 'var(--text-muted)' }}>Correct Answer: </span>
-                          <span style={{ color: '#10b981', fontWeight: '600' }}>{question.options[question.correctAnswer]}</span>
+                        <div style={{ background: 'rgba(16, 185, 129, 0.05)', padding: '0.75rem 1rem', borderRadius: '0.75rem' }}>
+                          <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: '700' }}>Correct Answer</p>
+                          <p style={{ color: '#059669', fontWeight: '600', fontSize: '0.95rem' }}>{question.options[question.correctAnswer]}</p>
                         </div>
                       </div>
                     </div>
