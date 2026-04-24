@@ -329,10 +329,14 @@ const AdminDashboard = () => {
                   <div key={q._id} className="glass-card" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ flex: 1 }}>
                       <p style={{ fontWeight: '600', marginBottom: '0.5rem' }}><span style={{ color: 'var(--primary)' }}>{idx + 1}.</span> {q.questionText}</p>
-                      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem 1.5rem' }}>
                         {q.options.map((opt, oIdx) => (
-                          <span key={oIdx} style={{ fontSize: '0.85rem', color: oIdx === q.correctAnswer ? '#10b981' : 'var(--text-muted)' }}>
-                            {String.fromCharCode(65 + oIdx)}: {opt}
+                          <span key={oIdx} style={{ 
+                            fontSize: '0.85rem', 
+                            color: oIdx === q.correctAnswer ? '#10b981' : 'var(--text-muted)',
+                            wordBreak: 'break-word'
+                          }}>
+                            <span style={{ fontWeight: '700' }}>{String.fromCharCode(65 + oIdx)}:</span> {opt}
                           </span>
                         ))}
                       </div>
@@ -368,7 +372,14 @@ const AdminDashboard = () => {
                   <tbody>
                     {participants.map((p) => (
                       <tr key={p._id} className="glass-card" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                        <td style={{ padding: '1.25rem 1rem', fontWeight: '600', borderTopLeftRadius: '1rem', borderBottomLeftRadius: '1rem' }}>{p.studentName}</td>
+                        <td style={{ 
+                          padding: '1.25rem 1rem', 
+                          fontWeight: '600', 
+                          borderTopLeftRadius: '1rem', 
+                          borderBottomLeftRadius: '1rem',
+                          maxWidth: '200px',
+                          wordBreak: 'break-word'
+                        }}>{p.studentName}</td>
                         <td style={{ padding: '1.25rem 1rem' }}>{p.regNo}</td>
                         <td style={{ padding: '1.25rem 1rem' }}>Sec {p.section}</td>
                         <td style={{ padding: '1.25rem 1rem', textAlign: 'center' }}>
@@ -386,7 +397,8 @@ const AdminDashboard = () => {
                             fontWeight: '700',
                             background: p.submissionType === 'Auto' ? 'rgba(244, 63, 94, 0.2)' : 'rgba(16, 185, 129, 0.2)',
                             color: p.submissionType === 'Auto' ? '#f43f5e' : '#10b981',
-                            border: `1px solid ${p.submissionType === 'Auto' ? '#f43f5e' : '#10b981'}`
+                            border: `1px solid ${p.submissionType === 'Auto' ? '#f43f5e' : '#10b981'}`,
+                            whiteSpace: 'nowrap'
                           }}>
                             {p.submissionType === 'Auto' ? '⚠️ AUTO' : 'MANUAL'}
                           </span>

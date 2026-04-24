@@ -9,8 +9,9 @@ const Submission = require('../models/Submission');
 // Get 10 random questions for a specific unit (Students)
 router.get('/questions/:unit', async (req, res) => {
   try {
+    const unit = parseInt(req.params.unit);
     const questions = await Question.aggregate([
-      { $match: { unit: parseInt(req.params.unit) } },
+      { $match: { unit: unit } },
       { $sample: { size: 10 } }
     ]);
     res.json(questions);
