@@ -14,6 +14,10 @@ const MainContent = () => {
   const isQuizPage = location.pathname === '/quiz';
 
   useEffect(() => {
+    // Disable anti-cheating for Admin Portal
+    const isAdminPath = location.pathname.startsWith('/admin');
+    if (isAdminPath) return;
+
     const preventAction = (e) => {
       e.preventDefault();
       return false;
@@ -32,7 +36,7 @@ const MainContent = () => {
       }
     };
 
-    // Global Anti-Cheating: Applies to all pages
+    // Global Anti-Cheating: Applies to Student pages (Home, Register, Quiz)
     document.addEventListener('contextmenu', preventAction);
     document.addEventListener('copy', preventAction);
     document.addEventListener('paste', preventAction);
@@ -48,7 +52,7 @@ const MainContent = () => {
       document.removeEventListener('keydown', preventKeyShortcuts);
       document.removeEventListener('dragstart', preventAction);
     };
-  }, []);
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen" style={{ display: 'flex', flexDirection: 'column' }}>
