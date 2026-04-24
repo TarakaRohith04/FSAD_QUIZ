@@ -17,7 +17,7 @@ const QuizRunner = () => {
   const [isCheated, setIsCheated] = useState(false);
   const cheatedRef = useRef(false);
   const [timeLeft, setTimeLeft] = useState(600); // 10 minutes in seconds
-  
+
   const timerRef = useRef(null);
   const submittingRef = useRef(false);
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const QuizRunner = () => {
       submitFinalResults();
       return;
     }
-    
+
     setLoading(true);
     const loadQuestions = async () => {
       try {
@@ -81,22 +81,10 @@ const QuizRunner = () => {
       }
     };
 
-    const handleWindowBlur = () => {
-      setTimeout(() => {
-        if (!document.hasFocus() && !finished) {
-          setIsCheated(true);
-          cheatedRef.current = true;
-          handleNextUnit(true, true);
-        }
-      }, 500);
-    };
-
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('blur', handleWindowBlur);
 
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('blur', handleWindowBlur);
     };
   }, [finished, loading, unit]);
 
@@ -118,7 +106,7 @@ const QuizRunner = () => {
     const unitMarks = calculateMarksForCurrentUnit();
     const updatedMarks = { ...marks, [unit]: unitMarks };
     setMarks(updatedMarks);
-    
+
     if (unit < 4 && !forceFinal) {
       setUnit(unit + 1);
     } else {
@@ -171,7 +159,7 @@ const QuizRunner = () => {
               </motion.div>
               <h1 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: '#f43f5e' }}>Caught in the Act!</h1>
               <p style={{ fontSize: '1.2rem', lineHeight: '1.6', color: 'var(--text-muted)', marginBottom: '2.5rem' }}>
-                Nice try, {studentInfo.name}! Unfortunately, your magic tricks don't work on our anti-cheat system. 
+                Nice try, {studentInfo.name}! Unfortunately, your magic tricks don't work on our anti-cheat system.
                 We've auto-submitted your answers so you can focus entirely on whatever elsewhere was so extremely important.
               </p>
             </>
@@ -222,7 +210,7 @@ const QuizRunner = () => {
 
       {/* Progress Bar */}
       <div style={{ width: '100%', height: '6px', background: 'rgba(0,0,0,0.05)', borderRadius: '3px', marginBottom: '3rem', overflow: 'hidden' }}>
-        <motion.div 
+        <motion.div
           initial={{ width: '0%' }}
           animate={{ width: `${(unit / 4) * 100}%` }}
           style={{ height: '100%', background: 'var(--primary)' }}
@@ -243,12 +231,12 @@ const QuizRunner = () => {
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {questions.map((q, index) => (
-            <motion.div 
-              key={q._id} 
+            <motion.div
+              key={q._id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="glass-card" 
+              className="glass-card"
               style={{ padding: '2rem' }}
             >
               <h3 style={{ marginBottom: '1.5rem', fontSize: '1.2rem' }}>

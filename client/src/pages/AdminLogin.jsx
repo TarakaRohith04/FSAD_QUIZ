@@ -11,7 +11,7 @@ const AdminLogin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (password === 'Akka@1') {
+    if (password === 'FSAD@QUIZ') {
       localStorage.setItem('isAdmin', 'true');
       navigate('/admin/dashboard');
     } else {
