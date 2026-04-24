@@ -32,10 +32,7 @@ router.get('/admin-questions/:unit', async (req, res) => {
 // Check if registration number already exists
 router.get('/check-registration/:regNo', async (req, res) => {
   try {
-    const regNum = parseInt(req.params.regNo);
-    if (isNaN(regNum) || regNum < 2501050001 || regNum > 2501050250) {
-      return res.status(400).json({ message: 'Registration number outside of valid range.' });
-    }
+    // Registration number format validation removed as requested
     const existing = await Submission.findOne({ regNo: req.params.regNo });
     res.json({ exists: !!existing });
   } catch (err) {
