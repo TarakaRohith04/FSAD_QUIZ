@@ -24,11 +24,7 @@ const Registration = () => {
 
     if (!formData.name || !formData.regNo) return;
 
-    const regNum = parseInt(formData.regNo);
-    if (isNaN(regNum) || regNum < 2501050001 || regNum > 2501050250) {
-      setError('Invalid Registration Number');
-      return;
-    }
+    // Registration number format validation removed as requested
 
     setLoading(true);
     try {
